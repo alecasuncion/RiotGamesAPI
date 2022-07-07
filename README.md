@@ -1,2 +1,3 @@
 # RiotGamesAPI
+
 Riot Games API

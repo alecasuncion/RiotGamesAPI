@@ -1,7 +1,6 @@
 package com.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.model.AccountInfo;
 import com.model.SummonerInfo;
 
 public interface SummonerInfoService {

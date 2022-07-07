@@ -12,7 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @Service
 @Component
-public class SummonerInfoServiceImpl implements SummonerInfoService{
+public class SummonerInfoServiceImpl implements SummonerInfoService {
 
     @Autowired
     private SummonerInfoDAO accountInfoDAO;
@@ -27,7 +27,7 @@ public class SummonerInfoServiceImpl implements SummonerInfoService{
             si.setGameName(ai.getGameName());
             si.setTagLine(ai.getTagLine());
             return si;
-        }catch(HttpClientErrorException.NotFound e){
+        } catch (HttpClientErrorException.NotFound e) {
             throw new ApiRequestException();
         }
     }

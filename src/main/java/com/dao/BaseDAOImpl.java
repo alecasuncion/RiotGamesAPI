@@ -2,15 +2,11 @@ package com.dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.DataInput;
-import java.io.IOException;
 
 @RestController
 public class BaseDAOImpl {
@@ -19,9 +15,9 @@ public class BaseDAOImpl {
     private String token;
 
     @Value("${riot.origin.url}")
-    private String origin ;
+    private String origin;
 
-    protected HttpEntity<Object> createHeader(){
+    protected HttpEntity<Object> createHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Riot-Token", token);
         headers.add("Origin", origin);

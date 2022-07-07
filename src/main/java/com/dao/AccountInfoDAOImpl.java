@@ -10,9 +10,11 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class AccountInfoDAOImpl extends BaseDAOImpl implements AccountInfoDAO {
+
+
     public AccountInfo accountValue(String gameName, String tagLine) throws JsonProcessingException {
         HttpEntity<Object> header = createHeader();
-        String url = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameName+ "/" + tagLine;
+        String url = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, header, String.class);
         System.out.println(response);
@@ -20,6 +22,7 @@ public class AccountInfoDAOImpl extends BaseDAOImpl implements AccountInfoDAO {
         accountInfo = (AccountInfo) createObject(response, new AccountInfo());
         return accountInfo;
     }
+
     public AccountInfo accountValue(String puuid) throws JsonProcessingException {
         HttpEntity<Object> header = createHeader();
         String url = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-puuid/" + puuid;

@@ -1,28 +1,29 @@
 package com.controller;
 
-import com.model.AccountInfo;
-import com.service.AccountInfoServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.model.AccountInfo;
+import com.service.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AccountInfoController extends BaseController{
+public class AccountInfoController extends BaseController {
 
     @Autowired
-    private AccountInfoServiceImpl accountInfoServiceImpl;
+    private AccountInfoService accountInfoService;
 
     @GetMapping("account/{gameName}/{tagLine}")
     AccountInfo accountValue(@PathVariable String gameName, @PathVariable String tagLine) throws JsonProcessingException {
-        return accountInfoServiceImpl.accountValue(gameName, tagLine);
+        return accountInfoService.accountValue(gameName, tagLine);
     }
 
     @GetMapping("account/{puuid}")
     AccountInfo accountValue(@PathVariable String puuid) throws JsonProcessingException {
-        return accountInfoServiceImpl.accountValue(puuid);
+        return accountInfoService.accountValue(puuid);
     }
 
     protected AccountInfo createAccountObject(ResponseEntity<String> response) throws JsonProcessingException {

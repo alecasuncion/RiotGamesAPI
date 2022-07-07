@@ -1,6 +1,5 @@
 package com.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.exception.ApiRequestException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.model.SummonerInfo;
@@ -18,7 +17,7 @@ public class SummonerInfoController extends BaseController {
 
 
     @GetMapping("account/summoner/{name}")
-    public SummonerInfo summonerDetails(@PathVariable String name) throws JsonProcessingException, ApiRequestException{
+    public SummonerInfo summonerDetails(@PathVariable String name) throws JsonProcessingException, ApiRequestException {
         return summonerInfoService.summonerDetails(name);
     }
 }
