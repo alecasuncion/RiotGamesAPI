@@ -1,20 +1,13 @@
 package com.controller;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import com.model.BaseClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BaseController {
+public class BaseController extends BaseClass {
 
 
-    private String token = "RGAPI-d7f823f7-dedc-4315-8c20-9dc33e4ed2c2";
-    private String origin = "https://developer.riotgames.com";
-
-    protected HttpEntity<Object> createHeader(){
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Riot-Token", token);
-        headers.add("Origin", origin);
-        return new HttpEntity<Object>(headers);
-    }
 }

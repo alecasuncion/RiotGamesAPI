@@ -1,14 +1,18 @@
 package com.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.exception.ApiRequestException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.model.Match;
+import com.model.MatchId;
 import com.model.SummonerInfo;
-import com.service.SummonerInfoService;
+import com.service.summonerinfo.SummonerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class SummonerInfoController extends BaseController {
@@ -17,8 +21,9 @@ public class SummonerInfoController extends BaseController {
     public SummonerInfoService summonerInfoService;
 
 
-    @GetMapping("account/summoner/{name}")
-    public SummonerInfo summonerDetails(@PathVariable String name) throws JsonProcessingException, ApiRequestException{
-        return summonerInfoService.summonerDetails(name);
+    @GetMapping("summoner/{name}")
+    public SummonerInfo getSummonerDetails(@PathVariable String name, @RequestParam(required = false, defaultValue = "JP1") String platformCode) throws JsonProcessingException, ApiRequestException {
+        return summonerInfoService.getSummonerDetails(name, region);
     }
+
 }

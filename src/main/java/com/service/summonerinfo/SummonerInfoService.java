@@ -1,9 +1,8 @@
-package com.service;
+package com.service.summonerinfo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.model.AccountInfo;
 import com.model.SummonerInfo;
 
 public interface SummonerInfoService {
-    SummonerInfo summonerDetails(String name) throws JsonProcessingException;
+    SummonerInfo getSummonerDetails(String name, String region) throws JsonProcessingException;
 }
