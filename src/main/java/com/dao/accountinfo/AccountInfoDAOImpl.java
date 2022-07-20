@@ -18,8 +18,7 @@ public class AccountInfoDAOImpl extends BaseDAOImpl implements AccountInfoDAO {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, header, String.class);
         System.out.println(response);
-        AccountInfo accountInfo = new AccountInfo();
-        accountInfo = (AccountInfo) createObject(response, new AccountInfo());
+        AccountInfo accountInfo = (AccountInfo) createObject(response, AccountInfo.class);
         return accountInfo;
     }
 
@@ -28,8 +27,7 @@ public class AccountInfoDAOImpl extends BaseDAOImpl implements AccountInfoDAO {
         String url = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-puuid/" + puuid;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, header, String.class);
-        AccountInfo accountInfo = new AccountInfo();
-        accountInfo = (AccountInfo) createObject(response, new AccountInfo());
+        AccountInfo accountInfo = (AccountInfo) createObject(response, AccountInfo.class);
         System.out.println(response);
         return accountInfo;
     }

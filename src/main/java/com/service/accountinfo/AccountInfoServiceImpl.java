@@ -16,7 +16,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     @Autowired
     private AccountInfoDAO accountInfoDAO;
 
-    public AccountInfo accountValue(String gameName, String tagLine) throws JsonProcessingException {
+    public AccountInfo getAccountValue(String gameName, String tagLine) throws JsonProcessingException {
         try {
             return accountInfoDAO.accountValue(gameName, tagLine);
         } catch (HttpClientErrorException.NotFound e) {
@@ -24,7 +24,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
         }
     }
 
-    public AccountInfo accountValue(String puuid) throws JsonProcessingException {
+    public AccountInfo getAccountValue(String puuid) throws JsonProcessingException {
         try {
             return accountInfoDAO.accountValue(puuid);
         } catch (HttpClientErrorException.NotFound e) {
