@@ -1,11 +1,12 @@
-package com.dao;
+package com.dao.accountinfo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.model.AccountInfo;
 
 
 public interface AccountInfoDAO {
-    public AccountInfo accountValue(String gameName, String tagLine) throws JsonProcessingException;
+    public AccountInfo getAccountDetails(String gameName, String tagLine, String region) throws JsonProcessingException;
 
-    public AccountInfo accountValue(String puuid) throws JsonProcessingException;
+    public AccountInfo getAccountDetails(String puuid, String region) throws JsonProcessingException;
+
 }

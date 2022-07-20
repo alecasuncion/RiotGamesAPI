@@ -1,35 +1,30 @@
-package com.dao;
+package com.dao.accountinfo;
 
+import com.dao.BaseDAOImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.model.AccountInfo;
+import com.types.PlatformEnum;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 @Component
 public class AccountInfoDAOImpl extends BaseDAOImpl implements AccountInfoDAO {
 
 
-    public AccountInfo accountValue(String gameName, String tagLine) throws JsonProcessingException {
+    public AccountInfo getAccountDetails(String gameName, String tagLine, String region) throws JsonProcessingException {
         HttpEntity<Object> header = createHeader();
-        String url = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine;
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, header, String.class);
-        System.out.println(response);
-        AccountInfo accountInfo = (AccountInfo) createObject(response, AccountInfo.class);
-        return accountInfo;
+        String host = env.getProperty(PlatformEnum.getRegionHostByRegionCode(region));
+        String url = host + env.getProperty("account.gamename.tagline.detail.path") + gameName + "/" + tagLine;
+        return (AccountInfo) executeHTTPCall(url, HttpMethod.GET, header, AccountInfo.class);
+
     }
 
-    public AccountInfo accountValue(String puuid) throws JsonProcessingException {
+    public AccountInfo getAccountDetails(String puuid, String region) throws JsonProcessingException {
         HttpEntity<Object> header = createHeader();
-        String url = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-puuid/" + puuid;
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, header, String.class);
-        AccountInfo accountInfo = (AccountInfo) createObject(response, AccountInfo.class);
-        System.out.println(response);
-        return accountInfo;
+        String host = env.getProperty(PlatformEnum.getRegionHostByRegionCode(region));
+        String url = host + env.getProperty("account.puuid.detail.path") + puuid;
+        return (AccountInfo) executeHTTPCall(url, HttpMethod.GET, header, AccountInfo.class);
     }
 
 }

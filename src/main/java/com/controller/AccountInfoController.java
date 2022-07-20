@@ -3,11 +3,12 @@ package com.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.AccountInfo;
-import com.service.AccountInfoService;
+import com.service.accountinfo.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,17 +18,13 @@ public class AccountInfoController extends BaseController {
     private AccountInfoService accountInfoService;
 
     @GetMapping("account/{gameName}/{tagLine}")
-    AccountInfo accountValue(@PathVariable String gameName, @PathVariable String tagLine) throws JsonProcessingException {
-        return accountInfoService.accountValue(gameName, tagLine);
+    AccountInfo getAccountValue(@PathVariable String gameName, @PathVariable String tagLine, @RequestParam(required = false, defaultValue = "Asia") String region) throws JsonProcessingException {
+        return accountInfoService.getAccountDetails(gameName, tagLine, region);
     }
 
     @GetMapping("account/{puuid}")
-    AccountInfo accountValue(@PathVariable String puuid) throws JsonProcessingException {
-        return accountInfoService.accountValue(puuid);
+    AccountInfo getAccountValue(@PathVariable String puuid, @RequestParam(required = false, defaultValue = "Asia") String region) throws JsonProcessingException {
+        return accountInfoService.getAccountDetails(puuid, region);
     }
 
-    protected AccountInfo createAccountObject(ResponseEntity<String> response) throws JsonProcessingException {
-        ObjectMapper om = new ObjectMapper();
-        return om.readValue(response.getBody(), AccountInfo.class);
-    }
 }

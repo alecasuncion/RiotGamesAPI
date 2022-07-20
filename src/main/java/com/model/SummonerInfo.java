@@ -3,6 +3,8 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SummonerInfo extends AccountInfo {
 
@@ -23,6 +25,17 @@ public class SummonerInfo extends AccountInfo {
 
     @JsonProperty
     private String accountId;
+
+    @JsonProperty
+    private List<ChampionMastery> championMasteryList;
+
+    public List<ChampionMastery> getChampionMasteryList() {
+        return championMasteryList;
+    }
+
+    public void setChampionMasteryList(List<ChampionMastery> championMasteryList) {
+        this.championMasteryList = championMasteryList;
+    }
 
     public String getId() {
         return id;

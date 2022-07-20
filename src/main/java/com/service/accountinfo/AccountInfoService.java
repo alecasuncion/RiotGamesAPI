@@ -1,10 +1,10 @@
-package com.service;
+package com.service.accountinfo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.model.AccountInfo;
 
 public interface AccountInfoService {
-    public AccountInfo getAccountValue(String gameName, String tagLine) throws JsonProcessingException;
+    public AccountInfo getAccountDetails(String gameName, String tagLine, String String) throws JsonProcessingException;
 
-    public AccountInfo getAccountValue(String puuid) throws JsonProcessingException;
+    public AccountInfo getAccountDetails(String puuid, String region) throws JsonProcessingException;
 }
