@@ -7,7 +7,10 @@ import com.model.AccountInfo;
 import com.model.SummonerInfo;
 import com.service.accountinfo.AccountInfoService;
 import com.types.PlatformEnum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -16,6 +19,9 @@ import org.springframework.web.client.HttpClientErrorException;
 @Component
 public class SummonerInfoServiceImpl implements SummonerInfoService {
 
+    private static final Logger LOGGER = LogManager.getLogger(SummonerInfoServiceImpl.class);
+
+
     @Autowired
     private SummonerInfoDAO summonerInfoDAO;
 
@@ -23,20 +29,22 @@ public class SummonerInfoServiceImpl implements SummonerInfoService {
     private AccountInfoService accountInfoService;
 
     public SummonerInfo getSummonerDetails(String name, String region) throws JsonProcessingException {
-        try {
-            if(PlatformEnum.isInEnumByName(region)) {
-                SummonerInfo si = summonerInfoDAO.getSummonerDetails(name, region);
+        if(PlatformEnum.isInEnumByName(region)) {
+            SummonerInfo si = summonerInfoDAO.getSummonerDetails(name, region);
+            LOGGER.info("GET Summoner Details: Summoner found with Name: " + name);
+            try {
                 AccountInfo ai = accountInfoService.getAccountDetails(si.getPuuid(), PlatformEnum.getRegionCodeByName(region));
-                if(ai!=null) {
+                if (ai != null) {
                     si.setGameName(ai.getGameName());
                     si.setTagLine(ai.getTagLine());
                 }
-                return si;
-            }else{
-                return null;
+            }catch(Exception e){
+                LOGGER.error("GET Summoner Details: Error finding Riot Account Info related to name: " + name);
             }
-        } catch (HttpClientErrorException.NotFound e) {
-            throw new ApiRequestException();
+            return si;
+        }else{
+            LOGGER.info("GET Summoner Details: Invalid Platform Code: " + region);
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }
 
